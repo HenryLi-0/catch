@@ -21,7 +21,7 @@ bgImg.src = "http://www.lostdecadegames.com/demos/simple_canvas_game/images/back
 var hero = {
     x: 0,
     y: 0,
-    speed: 410
+    speed: 512
 }
 class Monster  {
     constructor(x = 0, y = 0, speed = 200) {
