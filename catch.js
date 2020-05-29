@@ -21,7 +21,7 @@ bgImg.src = "http://www.lostdecadegames.com/demos/simple_canvas_game/images/back
 var hero = {
     x: 0,
     y: 0,
-    speed: 512
+    speed: 410
 }
 class Monster  {
     constructor(x = 0, y = 0, speed = 200) {
@@ -56,7 +56,7 @@ class Monster  {
     checkMonster.x -= 10;
       }
     else if (monster.x <= checkMonster.x) {
-    checkMonster.x += 10;
+    checkMonster.x += 11;
     }
     }
     }
