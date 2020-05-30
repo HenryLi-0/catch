@@ -2,6 +2,7 @@ var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 var timeAvoided = 0;
 var keyPressed = {};
+alert("told u elliana")
 var countUp = setInterval(function () {
     timeAvoided += 1;
 }, 1000);
