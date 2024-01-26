@@ -21,12 +21,16 @@ bgImg.src = "http://www.lostdecadegames.com/demos/simple_canvas_game/images/back
 var hero = {
     x: 0,
     y: 0,
-    speed: 512
+    xv: 0,
+    yv: 0,
+    speed: 7
 }
 class Monster  {
-    constructor(x = 0, y = 0, speed = 200) {
+    constructor(x = 0, y = 0, speed = 3, xv = 0, yv = 0) {
     this.x = x;
     this.y = y;
+    this.xv = xv;
+    this.yv = yv;
     this.startPositionX = x;
     this.startPositionY = y;
     this.speed = speed;
@@ -72,35 +76,43 @@ window.addEventListener("keyup", function () {
 function reset() {
     hero.x = canvas.width / 2;
     hero.y = canvas.height / 2;
+    hero.xv = 0;
+    hero.yv = 0;
     for (i = 0; i < Monsters.length; i++) {
-        var monster = Monsters[i]; monster.x = monster.startPositionX;}
-        for (i = 0; i < Monsters.length; i++) {
-            var monster = Monsters[i]; monster.y = monster.startPositionY;}
+        var monster = Monsters[i]; monster.x = monster.startPositionX; monster.xv = 0;
+        var monster = Monsters[i]; monster.y = monster.startPositionY; monster.yv = 0;
+    }
     timeAvoided = 0;
 }
 
 function update(modifier) {
     if ("ArrowUp" in keyPressed && "ArrowRight" in keyPressed) {
-        hero.y -= hero.speed * modifier * DIAG_RATE;
-        hero.x += hero.speed * modifier * DIAG_RATE;
+        hero.yv -= hero.speed * modifier * DIAG_RATE;
+        hero.xv += hero.speed * modifier * DIAG_RATE;
     } else if ("ArrowUp" in keyPressed && "ArrowLeft" in keyPressed) {
-        hero.y -= hero.speed * modifier * DIAG_RATE;
-        hero.x -= hero.speed * modifier * DIAG_RATE;
+        hero.yv -= hero.speed * modifier * DIAG_RATE;
+        hero.xv -= hero.speed * modifier * DIAG_RATE;
     } else if ("ArrowDown" in keyPressed && "ArrowRight" in keyPressed) {
-        hero.y += hero.speed * modifier * DIAG_RATE;
-        hero.x += hero.speed * modifier * DIAG_RATE;
+        hero.yv += hero.speed * modifier * DIAG_RATE;
+        hero.xv += hero.speed * modifier * DIAG_RATE;
     } else if ("ArrowDown" in keyPressed && "ArrowLeft" in keyPressed) {
-        hero.y += hero.speed * modifier * DIAG_RATE;
-        hero.x -= hero.speed * modifier * DIAG_RATE;
+        hero.yv += hero.speed * modifier * DIAG_RATE;
+        hero.xv -= hero.speed * modifier * DIAG_RATE;
     } else if ("ArrowUp" in keyPressed) {
-        hero.y -= hero.speed * modifier;
+        hero.yv -= hero.speed * modifier;
     } else if ("ArrowDown" in keyPressed) {
-        hero.y += hero.speed * modifier;
+        hero.yv += hero.speed * modifier;
     } else if ("ArrowRight" in keyPressed) {
-        hero.x += hero.speed * modifier;
+        hero.xv += hero.speed * modifier;
     } else if ("ArrowLeft" in keyPressed) {
-        hero.x -= hero.speed * modifier;
+        hero.xv -= hero.speed * modifier;
     }
+
+    hero.xv=hero.xv*0.99;
+    hero.yv=hero.yv*0.99;
+    hero.x+=hero.xv;
+    hero.y+=hero.yv;
+
     for (i = 0; i < Monsters.length; i++) {
         var monster = Monsters[i]; if (monster.y <= 0) {
         monster.y = 0;
@@ -131,21 +143,29 @@ function update(modifier) {
     }
     for (i = 0; i < Monsters.length; i++) {
         var monster = Monsters[i]; if (monster.y > hero.y) {
-        monster.y -= monster.speed * modifier;
+        monster.yv -= monster.speed * modifier;
     }}
     for (i = 0; i < Monsters.length; i++) {
         var monster = Monsters[i]; if (monster.y < hero.y) {
-        monster.y += monster.speed * modifier;
+        monster.yv += monster.speed * modifier;
     }}
     for (i = 0; i < Monsters.length; i++) {
         var monster = Monsters[i]; if (monster.x > hero.x) {
-        monster.x -= monster.speed * modifier;
+        monster.xv -= monster.speed * modifier;
     }}
     for (i = 0; i < Monsters.length; i++) {
         var monster = Monsters[i]; if (monster.x < hero.x) {
-       monster.x += monster.speed * modifier;
+        monster.xv += monster.speed * modifier;
+    }}
+    for (i = 0; i < Monsters.length; i++) {
+        var monster = Monsters[i];
+        monster.xv = monster.xv * 0.99;
+        monster.yv = monster.yv * 0.99;
+        monster.x += monster.xv;
+        monster.y += monster.yv;
     }
-}
+
+
     for (i = 0; i < Monsters.length; i++) {
         var monster = Monsters[i];
     if (
