@@ -41,10 +41,10 @@ class Monster  {
     Monsters.unshift(monster1);
     var monster2 = new Monster(canvas.width,0,)
     Monsters.unshift(monster2)
-    var monster4 = new Monster(canvas.width,canvas.height)
-    Monsters.unshift(monster4)
-    var monster3 = new Monster(0,canvas.height)
+    var monster3 = new Monster(canvas.width,canvas.height)
     Monsters.unshift(monster3)
+    var monster4 = new Monster(0,canvas.height)
+    Monsters.unshift(monster4)
    function cycleMonstersPositions(monster) {
     for (var i = 0; i < Monsters.length; i++) {
     if (Monsters[i] !== monster) {
